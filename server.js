@@ -49,8 +49,11 @@ const limiter = rateLimit({
 app.use('/api/auth', limiter); // Apply stricter limit to auth routes
 
 // 1. Global CORS
-app.use(cors());
-app.use(express.json({ limit: '10mb' })); // Limit body size
+app.use(cors({
+  origin: "*", // Testing ke liye abhi sab allow kar do
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));// Limit body size
 
 // Cache control for GET requests
 app.use((req, res, next) => {
